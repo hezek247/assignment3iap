@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    form {
+      width: 300px;
+      margin: auto;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Student Registration</h2>
+<form id="registrationForm" onsubmit="return validateForm()">
+  <label>Name:</label>
+  <input type="text" id="name"><br>
+
+  <label>Email:</label>
+  <input type="email" id="email"><br>
+
+  <label>Password:</label>
+  <input type="password" id="password"><br>
+
+  <label>Confirm Password:</label>
+  <input type="password" id="confirmPassword"><br>
+
+  <div class="error" id="errorMsg"></div>
+  <button type="submit">Register</button>
+</form>
+
+<script>
+function validateForm() {
+  let name = document.getElementById("name").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let password = document.getElementById("password").value;
+  let confirmPassword = document.getElementById("confirmPassword").value;
+  let error = "";
+
+  if (!name || !email || !password || !confirmPassword) {
+    error = "All fields are required.";
+  } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+    error = "Invalid email format.";
+  } else if (password !== confirmPassword) {
+    error = "Passwords do not match.";
+  } else if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(password)) {
+    error = "Password must be at least 8 characters, contain a number, and an uppercase letter.";
+  }
+
+  document.getElementById("errorMsg").innerText = error;
+  return error === "";
+}
+</script>
+
+</body>
+</html>
